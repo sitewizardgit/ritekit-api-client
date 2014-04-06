@@ -91,7 +91,7 @@ class Client {
      * @return \ritetag\Response
      */
     public function aiTwitter($query) {
-        return $this->get("ai/twitter2/" . urlencode($query));
+        return $this->get("ai/twitter/" . urlencode($query));
     }
 
     /**

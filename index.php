@@ -9,5 +9,8 @@ require_once 'config.php';
 $client = new \ritetag\Client(CONSUMER_KEY, CONSUMER_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET);
 
 $response = $client->aiTwitter('test');
-print_r($response);
-//echo json_encode($response);
+echo "<div><pre>";
+echo $response->getBody();
+echo "</pre></div>";
+
+echo "<p>Limit remain: ".$response->getRemain()."</p>";
