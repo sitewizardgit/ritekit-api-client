@@ -10,7 +10,7 @@ namespace ritetag;
  */
 class Client {
 
-    private $host = "http://dev.ritetag.com/api/v2/";
+    private $host = "https://ritetag.com/api/v2/";
     private $timeout = 30;
     private $connecttimeout = 30;
     private $sslVerifypeer = FALSE;
@@ -18,15 +18,15 @@ class Client {
     private $useragent = 'RitetagClient v1.0.0';
 
     function accessTokenURL() {
-        return 'http://dev.ritetag.com/oauth/access_token';
+        return 'https://ritetag.com/oauth/access_token';
     }
 
     function authorizeURL() {
-        return 'http://dev.ritetag.com/oauth/authorize';
+        return 'https://ritetag.com/oauth/authorize';
     }
 
     function requestTokenURL() {
-        return 'http://dev.ritetag.com/oauth/request_token';
+        return 'https://ritetag.com/oauth/request_token';
     }
 
     /**
@@ -93,7 +93,15 @@ class Client {
     public function aiTwitter($query) {
         return $this->get("ai/twitter/" . urlencode($query));
     }
-
+    
+    public function hashtagsForLinks($link){
+        return $this->get("hashtagsforurl?url=".urldecode($link));
+    }
+    
+    public function trendingHashtags(){
+        return $this->get("trending-hashtags");
+    }
+    
     /**
      * GET request
      * @param string $url
