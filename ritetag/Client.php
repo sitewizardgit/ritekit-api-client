@@ -95,13 +95,15 @@ class Client {
     }
     
     public function hashtagsForLinks($link){
-        return $this->get("hashtagsforurl?url=".urldecode($link));
+        return $this->get("hashtagsforurl?url=".urlencode($link));
     }
     
     public function trendingHashtags(){
         return $this->get("trending-hashtags");
     }
-    
+    public function influencersForHashtag($hashtag){
+        return $this->get("influencers-for-hashtag/".  urlencode($hashtag));
+    }
     /**
      * GET request
      * @param string $url
