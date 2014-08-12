@@ -101,8 +101,13 @@ class Client {
     public function trendingHashtags(){
         return $this->get("trending-hashtags");
     }
+    
     public function influencersForHashtag($hashtag){
         return $this->get("influencers-for-hashtag/".  urlencode($hashtag));
+    }
+    
+    public function historicalData($hashtag){
+        return $this->get("historical-data/".urlencode($hashtag));
     }
     /**
      * GET request

@@ -53,3 +53,14 @@ echo $response->getBody();
 echo "</pre></div>";
 
 echo "<p>Limit remain: ".$response->getRemain()."</p>";
+
+/*
+ * 
+ */
+echo "<h2>historical data for hashtag</h2>";
+$response = $client->historicalData('job');
+echo "<div><pre>";
+echo $response->getBody();
+echo "</pre></div>";
+
+echo "<p>Limit remain: ".$response->getRemain()."</p>";
