@@ -109,6 +109,9 @@ class Client {
     public function historicalData($hashtag){
         return $this->get("historical-data/".urlencode($hashtag));
     }
+    public function tweetGrader($tweet){
+        return $this->post("/ai/tweetgrader",['tweet'=>  urlencode($tweet)]);
+    }
     /**
      * GET request
      * @param string $url

@@ -64,3 +64,15 @@ echo $response->getBody();
 echo "</pre></div>";
 
 echo "<p>Limit remain: ".$response->getRemain()."</p>";
+
+
+/*
+ * 
+ */
+echo "<h2>tweet grader</h2>";
+$response = $client->tweetGrader('Do you know when and how to #media optimize #iphonegames? What related hashtags are top-rated? https://ritetag.com/best-hashtags-for/iphonegames');
+echo "<div><pre>";
+echo $response->getBody();
+echo "</pre></div>";
+
+echo "<p>Limit remain: ".$response->getRemain()."</p>";
