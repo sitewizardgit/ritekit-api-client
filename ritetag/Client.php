@@ -98,8 +98,11 @@ class Client {
         return $this->get("hashtagsforurl?url=".urlencode($link));
     }
     
-    public function trendingHashtags(){
-        return $this->get("trending-hashtags");
+    public function trendingHashtags($green=false,$onlylatin=false){
+        $params = [];
+        if($green)$params[]="green=true";
+        if($onlylatin)$params[]="onlylatin=true";
+        return $this->get("trending-hashtags".((count($params)>0)?"?".implode("&", $params):""));
     }
     
     public function influencersForHashtag($hashtag){
@@ -220,7 +223,8 @@ class Client {
         list($headers, $content) = explode("\r\n\r\n", $ret, 2);
         $headers = $this->getHeaders($headers);
         $remain = isset($headers["X-Limit-Remain"])?$headers["X-Limit-Remain"]:null;
-        $response = new Response($httpInfo, $headers, $content, $statusCode, $remain);
+        $remainPerHour = isset($headers["X-Limit-Remain-Sub"])?$headers["X-Limit-Remain-Sub"]:null;
+        $response = new Response($httpInfo, $headers, $content, $statusCode, $remain,$remainPerHour);
         curl_close($ci);
         return $response;
     }

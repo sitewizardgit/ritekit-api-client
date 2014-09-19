@@ -14,12 +14,15 @@ class Response {
     
     private $statusCode;
     private $remain;
-    function __construct($httpInfo, $header, $body, $statusCode, $remain) {
+    private $remainPerHour;
+    
+    function __construct($httpInfo, $header, $body, $statusCode, $remainPerDay,$remainPerHour) {
         $this->httpInfo = $httpInfo;
         $this->header = $header;
         $this->body = $body;
         $this->statusCode = $statusCode;
-        $this->remain = $remain;
+        $this->remain = $remainPerDay;
+        $this->remainPerHour=$remainPerHour;
     }
     
     public function getHttpInfo() {
@@ -44,6 +47,9 @@ class Response {
 
     public function getRemain() {
         return $this->remain;
+    }
+    public function getRemainPerHour(){
+        return $this->remainPerHour;
     }
 
 
