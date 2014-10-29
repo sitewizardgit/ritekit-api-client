@@ -25,7 +25,7 @@
              */
             if (file_exists('config.php')) {
                 require_once 'config.php';
-                $client = new \ritetag\Client(CONSUMER_KEY, CONSUMER_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET);
+                $client = new \Ritetag\API\Client(CONSUMER_KEY, CONSUMER_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET);
                 /*
                  * 
                  */

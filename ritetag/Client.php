@@ -1,6 +1,6 @@
 <?php
 
-namespace ritetag;
+namespace Ritetag\API;
 
 /**
  * Description of Response

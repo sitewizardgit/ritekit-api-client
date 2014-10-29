@@ -8,7 +8,7 @@
 class api {
     //put your code here
 }
-$client = new \ritetag\Client(CONSUMER_KEY, CONSUMER_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET);
+$client = new \Ritetag\Client(CONSUMER_KEY, CONSUMER_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET);
 
                 /*
                  * Hashtag Directory
