@@ -93,28 +93,59 @@ class Client {
     public function aiTwitter($query) {
         return $this->get("ai/twitter/" . urlencode($query));
     }
-    
-    public function hashtagsForLinks($link){
-        return $this->get("hashtagsforurl?url=".urlencode($link));
+
+    public function aiTwitterUrl($query) {
+        $url = "ai/twitter/" . urlencode($query);
+        return $this->oAuthRequestTest($url, 'GET', []);
     }
-    
-    public function trendingHashtags($green=false,$onlylatin=false){
+
+    public function hashtagsForLinks($link) {
+        return $this->get("hashtagsforurl?url=" . urlencode($link));
+    }
+
+    public function hashtagsForLinksUrl($link) {
+        $url = "hashtagsforurl?url=" . urlencode($link);
+        return $this->oAuthRequestTest($url, 'GET', []);
+    }
+
+    public function trendingHashtags($green = false, $onlylatin = false) {
         $params = [];
-        if($green)$params[]="green=true";
-        if($onlylatin)$params[]="onlylatin=true";
-        return $this->get("trending-hashtags".((count($params)>0)?"?".implode("&", $params):""));
+        if ($green)
+            $params[] = "green=true";
+        if ($onlylatin)
+            $params[] = "onlylatin=true";
+        return $this->get("trending-hashtags" . ((count($params) > 0) ? "?" . implode("&", $params) : ""));
+    }
+
+    public function trendingHashtagsUrl($green = false, $onlylatin = false) {
+        $params = [];
+        if ($green)
+            $params["green"] = 'true';
+        if ($onlylatin)
+            $params["onlylatin"] = 'true';
+        return $this->oAuthRequestTest("trending-hashtags", 'GET', $params);
+    }
+
+    public function influencersForHashtag($hashtag) {
+        return $this->get("influencers-for-hashtag/" . urlencode($hashtag));
     }
     
-    public function influencersForHashtag($hashtag){
-        return $this->get("influencers-for-hashtag/".  urlencode($hashtag));
+    public function influencersForHashtagUrl($hashtag){
+        $url = "influencers-for-hashtag/" . urlencode($hashtag);
+        return $this->oAuthRequestTest($url, 'GET', []);
     }
-    
-    public function historicalData($hashtag){
-        return $this->get("historical-data/".urlencode($hashtag));
+
+    public function historicalData($hashtag) {
+        return $this->get("historical-data/" . urlencode($hashtag));
     }
-    public function tweetGrader($tweet){
-        return $this->post("/ai/tweetgrader",['tweet'=>  urlencode($tweet)]);
+    public function historicalDataUrl($hashtag){
+        $url = "historical-data/" . urlencode($hashtag);
+        return $this->oAuthRequestTest($url, 'GET', null);
     }
+    public function tweetGrader($tweet) {
+        return $this->post("/ai/tweetgrader", ['tweet' => urlencode($tweet)]);
+    }
+
     /**
      * GET request
      * @param string $url
@@ -155,7 +186,6 @@ class Client {
         return $this->oAuthRequest($url, 'DELETE', $parameters);
     }
 
-
     /**
      * sign request
      * 
@@ -176,6 +206,15 @@ class Client {
             default:
                 return $this->http($request->get_normalized_http_url(), $method, $request->to_postdata());
         }
+    }
+
+    private function oAuthRequestTest($url, $method, $parameters) {
+        if (strrpos($url, 'https://') !== 0 && strrpos($url, 'http://') !== 0) {
+            $url = "{$this->host}{$url}";
+        }
+        $request = \OAuthRequest::from_consumer_and_token($this->consumer, $this->token, $method, $url, $parameters);
+        $request->sign_request($this->sha1_method, $this->consumer, $this->token);
+        return $request;
     }
 
     /**
@@ -222,9 +261,9 @@ class Client {
         $httpInfo = curl_getinfo($ci);
         list($headers, $content) = explode("\r\n\r\n", $ret, 2);
         $headers = $this->getHeaders($headers);
-        $remain = isset($headers["X-Limit-Remain"])?$headers["X-Limit-Remain"]:null;
-        $remainPerHour = isset($headers["X-Limit-Remain-Sub"])?$headers["X-Limit-Remain-Sub"]:null;
-        $response = new Response($httpInfo, $headers, $content, $statusCode, $remain,$remainPerHour);
+        $remain = isset($headers["X-Limit-Remain"]) ? $headers["X-Limit-Remain"] : null;
+        $remainPerHour = isset($headers["X-Limit-Remain-Sub"]) ? $headers["X-Limit-Remain-Sub"] : null;
+        $response = new Response($httpInfo, $headers, $content, $statusCode, $remain, $remainPerHour);
         curl_close($ci);
         return $response;
     }

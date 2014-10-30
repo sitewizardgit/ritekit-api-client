@@ -60,6 +60,7 @@
                     if (isset($_POST["hashtag-directory"]) && isset($_POST['hashtag'])) {
                         $response = $client->aiTwitter($_POST['hashtag']);
                         echo "<h2>Response body</h2>";
+                        echo "<div><samp>".($client->aiTwitterUrl($_POST['hashtag'])->to_url())."</samp></div>";
                         echo "<div><pre id='json'>";
                         echo $response->getBody();
                         echo "</pre></div>";
@@ -88,6 +89,7 @@
                         $latin = isset($_POST['onlylatin']);
                         $response = $client->trendingHashtags($green,$latin);
                         echo "<h2>Response body</h2>";
+                        echo "<div><samp>".($client->trendingHashtagsUrl($green,$latin)->to_url())."</samp></div>";
                         echo "<div><pre id='json'>";
                         echo $response->getBody();
                         echo "</pre></div>";
@@ -114,6 +116,7 @@
                     if (isset($_POST["hashtags-for-url"]) && isset($_POST['url'])) {
                         $response = $client->hashtagsForLinks($_POST['url']);
                         echo "<h2>Response body</h2>";
+                        echo "<div><samp>".($client->hashtagsForLinksUrl($_POST['url'])->to_url())."</samp></div>";
                         echo "<div><pre id='json'>";
                         echo $response->getBody();
                         echo "</pre></div>";
@@ -139,6 +142,7 @@
                     if (isset($_POST["influencers-for-hashtags"]) && isset($_POST['hashtag'])) {
                         $response = $client->influencersForHashtag($_POST['hashtag']);
                         echo "<h2>Response body</h2>";
+                        echo "<div><samp>".($client->influencersForHashtagUrl($_POST['hashtag'])->to_url())."</samp></div>";
                         echo "<div><pre id='json'>";
                         echo $response->getBody();
                         echo "</pre></div>";
@@ -163,6 +167,7 @@
                     if (isset($_POST["historical-data"]) && isset($_POST['hashtag'])) {
                         $response = $client->historicalData($_POST['hashtag']);
                         echo "<h2>Response body</h2>";
+                        echo "<div><samp>".($client->historicalDataUrl($_POST['hashtag'])->to_url())."</samp></div>";
                         echo "<div><pre id='json'>";
                         echo $response->getBody();
                         echo "</pre></div>";
