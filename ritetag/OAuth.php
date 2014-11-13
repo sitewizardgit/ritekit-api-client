@@ -1,9 +1,11 @@
 <?php
-// vim: foldmethod=marker
+namespace Ritetag\API;
 
-/* Generic exception class
+/* 
+ * OAuth lib. (http://oauth.net
+ * Generic exception class
  */
-if (!class_exists('OAuthException')) {
+if (!class_exists('Ritetag\API\OAuthException')) {
   class OAuthException extends Exception {
     // pass
   }
@@ -720,7 +722,7 @@ class OAuthDataStore {
 class OAuthUtil {
   public static function urlencode_rfc3986($input) {
   if (is_array($input)) {
-    return array_map(array('OAuthUtil', 'urlencode_rfc3986'), $input);
+    return array_map(array('Ritetag\API\OAuthUtil', 'urlencode_rfc3986'), $input);
   } else if (is_scalar($input)) {
     return str_replace(
       '+',

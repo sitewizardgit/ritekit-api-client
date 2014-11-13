@@ -37,10 +37,10 @@ class Client {
      * @param string $oauth_token_secret
      */
     function __construct($consumer_key, $consumer_secret, $oauth_token = NULL, $oauth_token_secret = NULL) {
-        $this->sha1_method = new \OAuthSignatureMethod_HMAC_SHA1();
-        $this->consumer = new \OAuthConsumer($consumer_key, $consumer_secret);
+        $this->sha1_method = new OAuthSignatureMethod_HMAC_SHA1();
+        $this->consumer = new OAuthConsumer($consumer_key, $consumer_secret);
         if (!empty($oauth_token) && !empty($oauth_token_secret)) {
-            $this->token = new \OAuthConsumer($oauth_token, $oauth_token_secret);
+            $this->token = new OAuthConsumer($oauth_token, $oauth_token_secret);
         } else {
             $this->token = NULL;
         }
@@ -55,8 +55,8 @@ class Client {
         $parameters = array();
         $parameters['oauth_callback'] = $oauthCallback;
         $request = $this->oAuthRequest($this->requestTokenURL(), 'GET', $parameters);
-        $token = \Oauth\OAuthUtil::parse_parameters($request);
-        $this->token = new \Oauth\OAuthConsumer($token['oauth_token'], $token['oauth_token_secret']);
+        $token = Oauth\OAuthUtil::parse_parameters($request);
+        $this->token = new Oauth\OAuthConsumer($token['oauth_token'], $token['oauth_token_secret']);
         return $token;
     }
 
@@ -80,7 +80,7 @@ class Client {
         $parameters = array();
         $parameters['oauth_verifier'] = $oauth_verifier;
         $request = $this->oAuthRequest($this->accessTokenURL(), 'GET', $parameters);
-        $token = \OAuthUtil::parse_parameters($request);
+        $token = OAuthUtil::parse_parameters($request);
         $this->token = new OAuthConsumer($token['oauth_token'], $token['oauth_token_secret']);
         return $token;
     }
