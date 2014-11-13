@@ -1,7 +1,10 @@
 <?php
 
 namespace Ritetag\API;
-
+use Ritetag\API\OAuth\OAuthSignatureMethod_HMAC_SHA1;
+use Ritetag\API\OAuth\OAuthConsumer;
+use Ritetag\API\OAuth\OAuthUtil;
+use Ritetag\API\OAuth\OAuthRequest;
 /**
  * Description of Response
  *
@@ -55,8 +58,8 @@ class Client {
         $parameters = array();
         $parameters['oauth_callback'] = $oauthCallback;
         $request = $this->oAuthRequest($this->requestTokenURL(), 'GET', $parameters);
-        $token = Oauth\OAuthUtil::parse_parameters($request);
-        $this->token = new Oauth\OAuthConsumer($token['oauth_token'], $token['oauth_token_secret']);
+        $token = OAuthUtil::parse_parameters($request);
+        $this->token = new OAuthConsumer($token['oauth_token'], $token['oauth_token_secret']);
         return $token;
     }
 
@@ -198,7 +201,7 @@ class Client {
         if (strrpos($url, 'https://') !== 0 && strrpos($url, 'http://') !== 0) {
             $url = "{$this->host}{$url}";
         }
-        $request = \OAuthRequest::from_consumer_and_token($this->consumer, $this->token, $method, $url, $parameters);
+        $request = OAuthRequest::from_consumer_and_token($this->consumer, $this->token, $method, $url, $parameters);
         $request->sign_request($this->sha1_method, $this->consumer, $this->token);
         switch ($method) {
             case 'GET':
@@ -212,7 +215,7 @@ class Client {
         if (strrpos($url, 'https://') !== 0 && strrpos($url, 'http://') !== 0) {
             $url = "{$this->host}{$url}";
         }
-        $request = \OAuthRequest::from_consumer_and_token($this->consumer, $this->token, $method, $url, $parameters);
+        $request = OAuthRequest::from_consumer_and_token($this->consumer, $this->token, $method, $url, $parameters);
         $request->sign_request($this->sha1_method, $this->consumer, $this->token);
         return $request;
     }
