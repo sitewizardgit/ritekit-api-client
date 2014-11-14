@@ -3,12 +3,14 @@
     <head>
         <title>Ritetag - Rest API</title>
 
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="www/css/ritetag-global.css">
         <style>
             .page {padding:10px;}
         </style>
-        <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        <script src="www/js/jquery-1.11.1.js"></script>
+
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     </head>
     <body>
         <div class="page">
@@ -205,10 +207,7 @@
                     }
                     ?>
                 </div>
-            </div>
-
-
-
+            
         </div>
         <script>
             var json = $("#json").html();
