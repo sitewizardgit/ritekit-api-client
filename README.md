@@ -10,14 +10,14 @@ This is how RiteTag Hashtag Bar looks like in Twitter. Using our sample code, yo
 
 ![hashtagbar.png](https://bitbucket.org/repo/pMKgRz/images/993122408-hashtagbar.png)
 
-##1. Create RiteTag developer account##
+###1. Create RiteTag developer account###
 
-##2a. Save folder *** to assets on your web##
+###2a. Save folder *** to assets on your web###
 
-##2b. Install via composer ##
+###2b. Install via composer ###
 composer create-project ritetag/api ritetag-app
 
-##3. Link JS and CSS files in <head> ##
+###3. Link JS and CSS files in <head> ###
 
 
 ```
@@ -27,11 +27,11 @@ composer create-project ritetag/api ritetag-app
 
 ```
 
-##4. Copy this where you want the infobar to appear##
+###4. Copy this where you want the infobar to appear###
 ```
 #!html
 <div ></div>
 
 ```
 
-##5. Implement PHP library for handling API call proxy##
+###5. Implement PHP library for handling API call proxy###
