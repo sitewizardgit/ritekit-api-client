@@ -7,10 +7,16 @@ composer create-project ritetag/api ritetag-app
 
 ##How to implement RiteTag hashtag bar to a textarea##
 
-###1. Save folder *** to assets on your web###
+This is how RiteTag Hashtag Bar looks like in Twitter. Using our sample code, you can make it work for any textarea on your site too (currently, without colorized hashtags inside the textarea).
+
+![hashtagbar.png](https://bitbucket.org/repo/pMKgRz/images/993122408-hashtagbar.png)
+
+###1. Create RiteTag developer account###
+
+###2. Save folder *** to assets on your web###
 
 
-###2. Link JS and CSS files in <head> ##
+###3. Link JS and CSS files in <head> ##
 
 
 ```
@@ -20,11 +26,11 @@ composer create-project ritetag/api ritetag-app
 
 ```
 
-###3. Copy this where you want the infobar to appear###
+###4. Copy this where you want the infobar to appear###
 ```
 #!html
 <div ></div>
 
 ```
 
-###4. Implement PHP library for handling API call proxy###
+###5. Implement PHP library for handling API call proxy###
