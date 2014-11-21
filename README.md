@@ -7,7 +7,7 @@ composer create-project ritetag/api ritetag-app
 
 ##How to implement RiteTag hashtag bar to a textarea##
 
-###Link JS and CSS files in HEAD##
+###1. Link JS and CSS files in <head> ##
 
 
 ```
@@ -16,3 +16,12 @@ composer create-project ritetag/api ritetag-app
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
 
 ```
+
+###2. Copy this where you want the infobar to appear###
+```
+#!html
+<div ></div>
+
+```
+
+###3. Implement PHP library for handling API call proxy###
