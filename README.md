@@ -11,6 +11,7 @@ This is how RiteTag Hashtag Bar looks like in Twitter. Using our sample code, yo
 ![hashtagbar.png](https://bitbucket.org/repo/pMKgRz/images/993122408-hashtagbar.png)
 
 ###1. Create RiteTag developer account###
+[Sign up](https://ritetag.com/developer/signup)
 
 ###2a. Save folder js, css, img to assets on your web###
 
@@ -63,7 +64,6 @@ define('OAUTH_TOKEN_SECRET',"????");
 ```
 
 edit index.php update path to config and autoloader.php
-
 
 ```
 #!php
