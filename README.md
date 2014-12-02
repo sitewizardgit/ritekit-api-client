@@ -12,7 +12,7 @@ This is how RiteTag Hashtag Bar looks like in Twitter. Using our sample code, yo
 
 ###1. Create RiteTag developer account###
 
-###2a. Save folder *** to assets on your web###
+###2a. Save folder js, css, img to assets on your web###
 
 ###2b. Install via composer ###
 composer create-project ritetag/api ritetag-app
@@ -46,3 +46,8 @@ composer create-project ritetag/api ritetag-app
 ```
 
 ###5. Implement PHP library for handling API call proxy###
+Save folder api on your web
+edit config.samle and save as config.php to api folder
+
+edit index.php update path to config and autoloader.php
+
