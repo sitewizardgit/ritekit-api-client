@@ -30,7 +30,10 @@ composer create-project ritetag/api ritetag-app
 ###4. Copy this where you want the Hashtag Bar to appear###
 ```
 #!html
-<div ></div>
+<div style="margin:15px;width: 500px;height: 200px" class="tweet-content">
+                <div style="padding-left: 15px" class="ritetag-infobar"></div>
+                <div style="width:100%;height: 100%;border: #292f33 1px solid" class="ritetag-richeditor" contenteditable="true"></div>
+            </div>
 
 ```
 
