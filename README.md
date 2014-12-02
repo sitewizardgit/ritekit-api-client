@@ -49,5 +49,27 @@ composer create-project ritetag/api ritetag-app
 Save folder api on your web
 edit config.samle and save as config.php to api folder
 
+```
+#!php
+<?php
+/*
+ *  https://ritetag.com/developer/dashboard
+ */
+define('CONSUMER_KEY', '????');
+define('CONSUMER_SECRET', '????');
+define('OAUTH_TOKEN', "????");
+define('OAUTH_TOKEN_SECRET',"????");
+
+```
+
 edit index.php update path to config and autoloader.php
 
+
+```
+#!php
+
+<?php
+require_once '../../config.php';
+require_once '../../vendor/autoload.php';
+
+```
