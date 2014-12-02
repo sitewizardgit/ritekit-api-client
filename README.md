@@ -13,12 +13,18 @@ This is how RiteTag Hashtag Bar looks like in Twitter. Using our sample code, yo
 ###1. Create RiteTag developer account###
 [Sign up](https://ritetag.com/developer/signup)
 
-###2a. Save folder js, css, img to assets on your web###
 
-###2b. Install via composer ###
+
+###2. Install via composer ###
 composer create-project ritetag/api ritetag-app
 
-###3. Link JS and CSS files in <head> ###
+###2a. run demo or implement to website###
+#### demo ####
+for run demo just skip to 7a and upload to server
+
+###4. Save folder js, css, img to assets on your web###
+
+###5. Link JS and CSS files in <head> ###
 
 
 ```
@@ -36,7 +42,7 @@ composer create-project ritetag/api ritetag-app
 
 ```
 
-###4. Copy this where you want the Hashtag Bar to appear###
+###6. Copy this where you want the Hashtag Bar to appear###
 ```
 #!html
 <div style="margin:15px;width: 500px;height: 200px" class="tweet-content">
@@ -46,8 +52,10 @@ composer create-project ritetag/api ritetag-app
 
 ```
 
-###5. Implement PHP library for handling API call proxy###
+###7. Implement PHP library for handling API call proxy###
 Save folder api on your web
+
+####7a. fill config ####
 edit config.samle and save as config.php to api folder
 
 ```
@@ -63,6 +71,7 @@ define('OAUTH_TOKEN_SECRET',"????");
 
 ```
 
+####7b.  autoloader ####
 edit index.php update path to config and autoloader.php
 
 ```
