@@ -98,71 +98,13 @@ if (typeof String.prototype.startsWith != 'function') {
     return this.indexOf(str) === 0;
   };
 }
-var composer = '.tweet-box.rich-editor';
-var servicename = "Twitter";
-var apiid = "twitter";
+var composer = '.ritetag-richeditor';
+var servicename = "Developer";
+var apiid = "developer";
 $(function () {
     if (!$('.ritetag-infobar').attr('data-initialized'))
-                RITETAG.infobar.update($(composer));
-    $(document).on('ritetag.infobar.initialized', function (event) {
-        var infobar = $(event.target);
-        jsStyling(infobar);
-        removeDataTitle(event);
-    });
-    $(document).on('ritetag.infobar.swap', removeDataTitle);
-    $(document).on('click mouseup keydown keypress keyup input', composer, function (event) {
-        $(event.target).siblings('.dropdown-menu.typeahead').css('top', $(event.target).height());
-    });
-
-    // Remove placeholder text before adding to composer
-    $(document).on('ritetag.composer.will.change', function (event) {
-        var c = $(event.target);
-        var c_parent = c.parents('form.tweet-form');
-        if (c_parent.hasClass('condensed'))
-            c.html('<div></div>');
-    });
-    $(document).on('ritetag.infobar.will.update', function (event) {
-        var c = RITETAG.infobar.getComposer($(event.target), composer);
-        var c_parent = c.parents('form.tweet-form');
-        if (c_parent.hasClass('condensed')) {
-            c_parent.addClass('ritetag-condensed').attr('data-ritetag-condensed', c.text());
-            c.html('<div></div>');
-        }
-    });
-    $(document).on('ritetag.infobar.trending.show', function (event) {
-        var c = RITETAG.infobar.getComposer($(event.target), composer);
-        var c_parent = c.parents('form.tweet-form');
-        if (c_parent.hasClass('ritetag-condensed')) {
-            c_parent.addClass('condensed').removeClass('ritetag-condensed');
-            c.html('<div>' + c_parent.attr('data-ritetag-condensed') + '</div>');
-            document.activeElement.blur();
-            c.blur();
-        }
-    });
-    RITETAG.infobar.bind(composer, {apiid: apiid, updateOnLoad: true});
+        RITETAG.infobar.bind(composer, {apiid: apiid, updateOnLoad: true});
 
 });
-function removeDataTitle(event) {
-    $(event.target).find('.ritetag-logo')
-            .attr('data-original-title', function () {
-                var attr = $(this).attr('title');
-                $(this).removeAttr('title');
-                return attr;
-            });
-}
 
-function jsStyling (infobar) {
-    infobar.find('.add-remove-hashtag').addClass('btn primary-btn');
-    infobar.find('.ritetag-search-button').addClass('btn primary-btn');
-    infobar.parents('form').parent().find('.inline-reply-user-image.avatar').css('margin-top', '41px');
-    infobar.parents('form').parent().find('.top-timeline-tweet-box-user-image.avatar').css('margin-top', '41px');
-    infobar.find('.hint')
-        .addClass('js-tooltip')
-        .attr('data-original-title', function() {
-            var attr = $(this).attr('title');
-            $(this).removeAttr('title');
-            return attr;
-        });
-    infobar.parent().find().css('margin-top', 49);
-}
 

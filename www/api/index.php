@@ -1,6 +1,7 @@
 <?php
 require_once '../../config.php';
 require_once '../../vendor/autoload.php';
+
 $router = new SimpleRouter();
 $client = new \Ritetag\API\Client(CONSUMER_KEY, CONSUMER_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET);
 
