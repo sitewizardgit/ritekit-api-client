@@ -22,8 +22,16 @@ composer create-project ritetag/api ritetag-app
 
 ```
 #!html
-<script src="/assets/js/jquery-1.11.1.min.js"></script>¨
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+<script src="/assets/js/jquery-1.11.1.js"></script>
+ <script src="/assets/js/jquery.rest.min.js"></script>
+<script src="/assets/js/twitter-text.js"></script>
+<script src="/assets/js/q.js"></script>
+<script src="/assets/js/infobar.js"></script>
+<script src="/assets/js/setup.js"></script>
+
+
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="www/css/hastagbar.css">
 
 ```
 
