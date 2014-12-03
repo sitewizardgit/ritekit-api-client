@@ -55,7 +55,7 @@ If you just want to run a demo, skip to 7a and upload to server
 Save folder api on your web
 
 ####7a. Config ####
-Edit config.samle and save as config.php to api folder
+Edit config.sample and save as config.php to api folder
 
 ```
 #!php
