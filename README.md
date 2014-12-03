@@ -54,7 +54,7 @@ If you just want to run a demo, skip to 7a and upload to server
 ###7. Implement PHP library for handling API call proxy###
 Save folder api on your web
 
-####7a. fill config ####
+####7a. Config ####
 Edit config.samle and save as config.php to api folder
 
 ```
@@ -70,7 +70,7 @@ define('OAUTH_TOKEN_SECRET',"????");
 
 ```
 
-####7b.  autoloader ####
+####7b.  Autoloader ####
 Edit index.php, update path to config and autoloader.php
 
 ```
