@@ -11,16 +11,16 @@ This is how RiteTag Hashtag Bar looks like in Twitter. Using our sample code, yo
 ![hashtagbar.png](https://bitbucket.org/repo/pMKgRz/images/993122408-hashtagbar.png)
 
 ###1. Create RiteTag developer account###
-[Sign up](https://ritetag.com/developer/signup)
+[Sign up for developer account here](https://ritetag.com/developer/signup)
 
 
 
 ###2. Install via composer ###
-composer create-project ritetag/api ritetag-app
+```composer create-project ritetag/api ritetag-app```
 
-###2a. run demo or implement to website###
-#### demo ####
-for run demo just skip to 7a and upload to server
+###3. Run demo (optional) ###
+
+If you just want to run a demo, skip to 7a and upload to server
 
 ###4. Save folder js, css, img to assets on your web###
 
@@ -30,12 +30,11 @@ for run demo just skip to 7a and upload to server
 ```
 #!html
 <script src="/assets/js/jquery-1.11.1.js"></script>
- <script src="/assets/js/jquery.rest.min.js"></script>
+<script src="/assets/js/jquery.rest.min.js"></script>
 <script src="/assets/js/twitter-text.js"></script>
 <script src="/assets/js/q.js"></script>
 <script src="/assets/js/infobar.js"></script>
 <script src="/assets/js/setup.js"></script>
-
 
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="www/css/hastagbar.css">
@@ -46,9 +45,9 @@ for run demo just skip to 7a and upload to server
 ```
 #!html
 <div style="margin:15px;width: 500px;height: 200px" class="tweet-content">
-                <div style="padding-left: 15px" class="ritetag-infobar"></div>
-                <div style="width:100%;height: 100%;border: #292f33 1px solid" class="ritetag-richeditor" contenteditable="true"></div>
-            </div>
+<div style="padding-left: 15px" class="ritetag-infobar"></div>
+<div style="width:100%;height: 100%;border: #292f33 1px solid" class="ritetag-richeditor" contenteditable="true"></div>
+</div>
 
 ```
 
@@ -56,7 +55,7 @@ for run demo just skip to 7a and upload to server
 Save folder api on your web
 
 ####7a. fill config ####
-edit config.samle and save as config.php to api folder
+Edit config.samle and save as config.php to api folder
 
 ```
 #!php
@@ -72,7 +71,7 @@ define('OAUTH_TOKEN_SECRET',"????");
 ```
 
 ####7b.  autoloader ####
-edit index.php update path to config and autoloader.php
+Edit index.php, update path to config and autoloader.php
 
 ```
 #!php
