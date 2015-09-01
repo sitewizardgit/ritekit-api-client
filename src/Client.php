@@ -14,6 +14,7 @@ use Ritetag\API\OAuth\OAuthRequest;
 class Client {
 
     private $host = "https://ritetag.com/api/v2/";
+    private $developmentHost = 'http://private-anon-49acc7b4c-ritetag.apiary-mock.com/';
     private $timeout = 30;
     private $connecttimeout = 30;
     private $sslVerifypeer = FALSE;
@@ -33,19 +34,22 @@ class Client {
     }
 
     /**
-     * 
+     *
      * @param string $consumer_key
      * @param string $consumer_secret
      * @param string $oauth_token
      * @param string $oauth_token_secret
      */
-    function __construct($consumer_key, $consumer_secret, $oauth_token = NULL, $oauth_token_secret = NULL) {
+    function __construct($consumer_key, $consumer_secret, $oauth_token = NULL, $oauth_token_secret = NULL, $testHost = false) {
         $this->sha1_method = new OAuthSignatureMethod_HMAC_SHA1();
         $this->consumer = new OAuthConsumer($consumer_key, $consumer_secret);
         if (!empty($oauth_token) && !empty($oauth_token_secret)) {
             $this->token = new OAuthConsumer($oauth_token, $oauth_token_secret);
         } else {
             $this->token = NULL;
+        }
+        if($testHost) {
+            $this->host = $this->developmentHost;
         }
     }
 
@@ -132,7 +136,7 @@ class Client {
     public function influencersForHashtag($hashtag) {
         return $this->get("influencers-for-hashtag/" . urlencode($hashtag));
     }
-    
+
     public function influencersForHashtagUrl($hashtag){
         $url = "influencers-for-hashtag/" . urlencode($hashtag);
         return $this->oAuthRequestTest($url, 'GET', []);
@@ -170,7 +174,7 @@ class Client {
     }
 
     /**
-     * 
+     *
      * @param strimg $url
      * @param array $parameters
      * @return \ritetag\Response
@@ -191,7 +195,7 @@ class Client {
 
     /**
      * sign request
-     * 
+     *
      * @param string $url
      * @param string $method
      * @param array $parameters
@@ -221,7 +225,7 @@ class Client {
     }
 
     /**
-     * 
+     *
      * @param string $url
      * @param string $method
      * @param array $postfields
