@@ -9,17 +9,17 @@ use Ritetag\API\OAuth\OAuthRequest;
  * Description of Response
  *
  * @author Houžva Pavel <pavel@ritetag.com>
- * @version 1.0
+ * @version 1.0.2
  */
 class Client {
 
-    private $host = "https://ritetag.com/api/v2/";
+    private $host = "https://ritetag.com/";
     private $developmentHost = 'http://private-anon-49acc7b4c-ritetag.apiary-mock.com/';
     private $timeout = 30;
     private $connecttimeout = 30;
     private $sslVerifypeer = FALSE;
-    private $decodeJson = false;
-    private $useragent = 'RitetagClient v1.0.0';
+    private $useragent = 'RitetagClient v1.0.2';
+    private $returnRequest = false;
 
     function accessTokenURL() {
         return 'https://ritetag.com/oauth/access_token';
@@ -52,7 +52,11 @@ class Client {
             $this->host = $this->developmentHost;
         }
     }
-
+    
+    public function returnRequest($request=true){
+        $this->returnRequest = $request;
+    }
+    
     /**
      * Get a request_token from Twitter
      *
@@ -95,69 +99,66 @@ class Client {
     /**
      * get info about query
      * @param string $query
-     * @return \ritetag\Response
+     * @return \Ritetag\API\Response|\Ritetag\API\OAuth\OAuthRequest
      */
-    public function aiTwitter($query) {
-        return $this->get("ai/twitter/" . urlencode($query));
+    public function hashtagDirectory($query) {
+        return $this->get("/api/v2/ai/twitter/" . urlencode($query));
     }
 
-    public function aiTwitterUrl($query) {
-        $url = "ai/twitter/" . urlencode($query);
-        return $this->oAuthRequestTest($url, 'GET', []);
-    }
-
-    public function hashtagsForLinks($link) {
-        return $this->get("hashtagsforurl?url=" . urlencode($link));
-    }
-
-    public function hashtagsForLinksUrl($link) {
-        $url = "hashtagsforurl?url=" . urlencode($link);
-        return $this->oAuthRequestTest($url, 'GET', []);
-    }
-
+    /**
+     * 
+     * @param boolean $green
+     * @param boolean $onlylatin
+     * @return \Ritetag\API\Response|\Ritetag\API\OAuth\OAuthRequest
+     */
     public function trendingHashtags($green = false, $onlylatin = false) {
-        $params = [];
-        if ($green)
-            $params[] = "green=true";
-        if ($onlylatin)
-            $params[] = "onlylatin=true";
-        return $this->get("trending-hashtags" . ((count($params) > 0) ? "?" . implode("&", $params) : ""));
+        return $this->get("/api/v2/trending-hashtags", ['green'=>$green,'onlylatin'=>$onlylatin]);
     }
-
-    public function trendingHashtagsUrl($green = false, $onlylatin = false) {
-        $params = [];
-        if ($green)
-            $params["green"] = 'true';
-        if ($onlylatin)
-            $params["onlylatin"] = 'true';
-        return $this->oAuthRequestTest("trending-hashtags", 'GET', $params);
-    }
-
+    
+    /**
+     * 
+     * @param string $hashtag
+     * @return \Ritetag\API\Response|\Ritetag\API\OAuth\OAuthRequest
+     */
     public function influencersForHashtag($hashtag) {
-        return $this->get("influencers-for-hashtag/" . urlencode($hashtag));
+        return $this->get("/api/v2/influencers-for-hashtag/" . urlencode($hashtag));
     }
 
-    public function influencersForHashtagUrl($hashtag){
-        $url = "influencers-for-hashtag/" . urlencode($hashtag);
-        return $this->oAuthRequestTest($url, 'GET', []);
-    }
-
+    /**
+     * 
+     * @param string $hashtag
+     * @return \Ritetag\API\Response|\Ritetag\API\OAuth\OAuthRequest
+     */
     public function historicalData($hashtag) {
-        return $this->get("historical-data/" . urlencode($hashtag));
+        return $this->get("/api/v2/historical-data/" . urlencode($hashtag));
     }
-    public function historicalDataUrl($hashtag){
-        $url = "historical-data/" . urlencode($hashtag);
-        return $this->oAuthRequestTest($url, 'GET', null);
+    /**
+     * 
+     * @param string $tweet
+     * @param boolean $photo
+     * @param array $networks TWITTER, FACEBOOK, GOOGLE_PLUS
+     * @return \Ritetag\API\Response|\Ritetag\API\OAuth\OAuthRequest
+     */
+    public function tweetGrader($tweet,$photo=false,$networks=['TWITTER']) {
+        return $this->get("/api/v2.1/reports/grader/", ['tweet' => ($tweet),'photo'=>(int)$photo,'networks'=>$networks]);
     }
-    public function tweetGrader($tweet) {
-        return $this->post("/ai/tweetgrader", ['tweet' => urlencode($tweet)]);
+    
+    /**
+     * 
+     * @param string $tweet
+     * @param boolean $img
+     * @param boolen $shortening
+     * @param boolean $character_limit
+     * @return \Ritetag\API\Response|\Ritetag\API\OAuth\OAuthRequest
+     */
+    public function autoenhace($tweet, $img=false,$shortening=true,$character_limit=false){
+        return $this->get("/api/v2.1/autoenhance/",['tweet'=>$tweet,'img'=>(int)$img,'shortening'=>(int)$shortening,'character_limit'=>(int)$character_limit]);
     }
-
     /**
      * GET request
      * @param string $url
      * @param array $parameters
-     * @return \ritetag\Response
+     * @return \Ritetag\API\Response|\Ritetag\API\OAuth\OAuthRequest
      */
     private function get($url, $parameters = array()) {
         return $this->oAuthRequest($url, 'GET', $parameters);
@@ -167,7 +168,7 @@ class Client {
      * POST request
      * @param string $url
      * @param array $parameters
-     * @return \ritetag\Response
+     * @return \Ritetag\API\Response
      */
     function post($url, $parameters = array()) {
         return $this->oAuthRequest($url, 'POST', $parameters);
@@ -177,7 +178,7 @@ class Client {
      *
      * @param strimg $url
      * @param array $parameters
-     * @return \ritetag\Response
+     * @return \Ritetag\API\Response|\Ritetag\API\OAuth\OAuthRequest
      */
     private function put($url, $parameters = array()) {
         return $this->oAuthRequest($url, 'PUT', $parameters);
@@ -187,7 +188,7 @@ class Client {
      * DELETE request
      * @param string $url
      * @param array $parameters
-     * @return \ritetag\Response
+     * @return \Ritetag\API\Response|\Ritetag\API\OAuth\OAuthRequest
      */
     private function delete($url, $parameters = array()) {
         return $this->oAuthRequest($url, 'DELETE', $parameters);
@@ -199,7 +200,7 @@ class Client {
      * @param string $url
      * @param string $method
      * @param array $parameters
-     * @return string response body
+     * @return \Ritetag\API\Response|\Ritetag\API\OAuth\OAuthRequest
      */
     private function oAuthRequest($url, $method, $parameters) {
         if (strrpos($url, 'https://') !== 0 && strrpos($url, 'http://') !== 0) {
@@ -207,6 +208,9 @@ class Client {
         }
         $request = OAuthRequest::from_consumer_and_token($this->consumer, $this->token, $method, $url, $parameters);
         $request->sign_request($this->sha1_method, $this->consumer, $this->token);
+        if($this->returnRequest){
+            return $request;
+        }
         switch ($method) {
             case 'GET':
                 return $this->http($request->to_url(), 'GET');
@@ -215,33 +219,16 @@ class Client {
         }
     }
 
-    private function oAuthRequestTest($url, $method, $parameters) {
-        if (strrpos($url, 'https://') !== 0 && strrpos($url, 'http://') !== 0) {
-            $url = "{$this->host}{$url}";
-        }
-        $request = OAuthRequest::from_consumer_and_token($this->consumer, $this->token, $method, $url, $parameters);
-        $request->sign_request($this->sha1_method, $this->consumer, $this->token);
-        return $request;
-    }
-
     /**
      *
      * @param string $url
      * @param string $method
      * @param array $postfields
-     * @return string
+     * @return \Ritetag\API\Response
      */
     private function http($url, $method, $postfields = NULL) {
-        $ci = curl_init();
         /* Curl settings */
-        curl_setopt($ci, CURLOPT_USERAGENT, $this->useragent);
-        curl_setopt($ci, CURLOPT_CONNECTTIMEOUT, $this->connecttimeout);
-        curl_setopt($ci, CURLOPT_TIMEOUT, $this->timeout);
-        curl_setopt($ci, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ci, CURLOPT_HTTPHEADER, array('Expect:'));
-        curl_setopt($ci, CURLOPT_SSL_VERIFYPEER, $this->sslVerifypeer);
-        curl_setopt($ci, CURLOPT_HEADER, true);
-
+        $ci = $this->curlSettings(curl_init());
         switch ($method) {
             case 'POST':
                 curl_setopt($ci, CURLOPT_POST, TRUE);
@@ -267,14 +254,20 @@ class Client {
         $statusCode = curl_getinfo($ci, CURLINFO_HTTP_CODE);
         $httpInfo = curl_getinfo($ci);
         list($headers, $content) = explode("\r\n\r\n", $ret, 2);
-        $headers = $this->getHeaders($headers);
-        $remain = isset($headers["X-Limit-Remain"]) ? $headers["X-Limit-Remain"] : null;
-        $remainPerHour = isset($headers["X-Limit-Remain-Sub"]) ? $headers["X-Limit-Remain-Sub"] : null;
-        $response = new Response($httpInfo, $headers, $content, $statusCode, $remain, $remainPerHour);
+        $response = new Response($httpInfo, $this->getHeaders($headers), $content, $statusCode);
         curl_close($ci);
         return $response;
     }
-
+    private function curlSettings($curl){
+        curl_setopt($curl, CURLOPT_USERAGENT, $this->useragent);
+        curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, $this->connecttimeout);
+        curl_setopt($curl, CURLOPT_TIMEOUT, $this->timeout);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Expect:'));
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, $this->sslVerifypeer);
+        curl_setopt($curl, CURLOPT_HEADER, true);
+        return $curl;
+    }
     /**
      * parse response header to array
      * @param string $header

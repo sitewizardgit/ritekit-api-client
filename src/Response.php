@@ -4,7 +4,7 @@ namespace Ritetag\API;
  * Description of Response
  *
  * @author Houžva Pavel <pavel@ritetag.com>
- * @version 1.0
+ * @version 1.0.2
  */
 class Response {
     private $httpInfo;
@@ -13,16 +13,12 @@ class Response {
     private $body;
     
     private $statusCode;
-    private $remain;
-    private $remainPerHour;
     
-    function __construct($httpInfo, $header, $body, $statusCode, $remainPerDay,$remainPerHour) {
+    function __construct($httpInfo, $header, $body, $statusCode) {
         $this->httpInfo = $httpInfo;
         $this->header = $header;
         $this->body = $body;
         $this->statusCode = $statusCode;
-        $this->remain = $remainPerDay;
-        $this->remainPerHour=$remainPerHour;
     }
     
     public function getHttpInfo() {
@@ -44,14 +40,4 @@ class Response {
     public function getStatusCode() {
         return $this->statusCode;
     }
-
-    public function getRemain() {
-        return $this->remain;
-    }
-    public function getRemainPerHour(){
-        return $this->remainPerHour;
-    }
-
-
-
 }
