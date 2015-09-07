@@ -4,7 +4,7 @@
 
 
 
-##How to implement RiteTag Hashtag Bar to a textarea##
+##How to implement RiteTag API client##
 
 ###1. Create RiteTag developer account###
 [Sign up for developer account here](https://ritetag.com/developer/signup)
