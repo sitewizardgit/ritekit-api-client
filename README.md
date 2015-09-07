@@ -6,10 +6,6 @@
 
 ##How to implement RiteTag Hashtag Bar to a textarea##
 
-This is how the RiteTag Hashtag Bar looks in Twitter. Using our sample code, you can make it work for any textarea on your site (currently, without colorized hashtags in the textarea).
-
-![hashtagbar.png](https://bitbucket.org/repo/pMKgRz/images/993122408-hashtagbar.png)
-
 ###1. Create RiteTag developer account###
 [Sign up for developer account here](https://ritetag.com/developer/signup)
 
