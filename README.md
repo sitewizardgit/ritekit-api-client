@@ -12,7 +12,7 @@
 
 
 ###2. Install via composer ###
-```composer create-project ritetag/api ritetag-app```
+```composer require ritetag/api:~1.0.2```
 
 
 ####3. Config ####
