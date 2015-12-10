@@ -9,7 +9,6 @@ use Ritetag\API\OAuth\OAuthRequest;
  * Description of Response
  *
  * @author Houžva Pavel <pavel@ritetag.com>
- * @version 1.0.2
  */
 class Client {
 
@@ -99,60 +98,58 @@ class Client {
     /**
      * get info about query
      * @param string $query
-     * @return \Ritetag\API\Response|\Ritetag\API\OAuth\OAuthRequest
+     * @return \Ritetag\API\Response
      */
-    public function hashtagDirectory($query) {
-        return $this->get("/api/v2/ai/twitter/" . urlencode($query));
+    public function hashtagStats($query) {
+        return $this->get("/api/v2.2/data/stats/" . urlencode($query));
     }
 
     /**
      * 
      * @param boolean $green
      * @param boolean $onlylatin
-     * @return \Ritetag\API\Response|\Ritetag\API\OAuth\OAuthRequest
+     * @return \Ritetag\API\Response|
      */
-    public function trendingHashtags($green = false, $onlylatin = false) {
-        return $this->get("/api/v2/trending-hashtags", ['green'=>$green,'onlylatin'=>$onlylatin]);
+    public function trendingHashtags($green = false, $latin = false) {
+        return $this->get("/api/v2.2/data/trending-hashtags", ['green'=>$green,'latin'=>$latin]);
     }
     
     /**
      * 
      * @param string $hashtag
-     * @return \Ritetag\API\Response|\Ritetag\API\OAuth\OAuthRequest
+     * @return \Ritetag\API\Response
      */
     public function influencersForHashtag($hashtag) {
-        return $this->get("/api/v2/influencers-for-hashtag/" . urlencode($hashtag));
+        return $this->get("/api/v2.2/data/influencers" . urlencode($hashtag));
     }
 
     /**
      * 
      * @param string $hashtag
-     * @return \Ritetag\API\Response|\Ritetag\API\OAuth\OAuthRequest
+     * @return \Ritetag\API\Response
      */
     public function historicalData($hashtag) {
-        return $this->get("/api/v2/historical-data/" . urlencode($hashtag));
+        return $this->get("/api/v2.2/data/history/" . urlencode($hashtag));
     }
     /**
      * 
      * @param string $tweet
-     * @param boolean $photo
+     * @param boolean $image
      * @param array $networks TWITTER, FACEBOOK, GOOGLE_PLUS
      * @return \Ritetag\API\Response|\Ritetag\API\OAuth\OAuthRequest
      */
-    public function tweetGrader($tweet,$photo=false,$networks=['TWITTER']) {
-        return $this->get("/api/v2.1/reports/grader/", ['tweet' => ($tweet),'photo'=>(int)$photo,'networks'=>$networks]);
+    public function tweetGrader($tweet,$image=false,array $networks=['twitter']) {
+        return $this->get("/api/v2.2/ai/coach/", ['tweet' => ($tweet),'photo'=>(int)$image,'networks'=>$networks]);
     }
     
     /**
      * 
      * @param string $tweet
-     * @param boolean $img
-     * @param boolen $shortening
-     * @param boolean $character_limit
-     * @return \Ritetag\API\Response|\Ritetag\API\OAuth\OAuthRequest
+     * @param boolean $image
+     * @return \Ritetag\API\Response
      */
-    public function autoenhace($tweet, $img=false,$shortening=true,$character_limit=false){
-        return $this->get("/api/v2.1/autoenhance/",['tweet'=>$tweet,'img'=>(int)$img,'shortening'=>(int)$shortening,'character_limit'=>(int)$character_limit]);
+    public function autoenhance($tweet, $image=false){
+        return $this->get("/api/v2.2/autoenhance/",['tweet'=>$tweet,'image'=>(int)$image]);
     }
     /**
      * GET request
@@ -178,7 +175,7 @@ class Client {
      *
      * @param strimg $url
      * @param array $parameters
-     * @return \Ritetag\API\Response|\Ritetag\API\OAuth\OAuthRequest
+     * @return \Ritetag\API\Response
      */
     private function put($url, $parameters = array()) {
         return $this->oAuthRequest($url, 'PUT', $parameters);
@@ -188,7 +185,7 @@ class Client {
      * DELETE request
      * @param string $url
      * @param array $parameters
-     * @return \Ritetag\API\Response|\Ritetag\API\OAuth\OAuthRequest
+     * @return \Ritetag\API\Response
      */
     private function delete($url, $parameters = array()) {
         return $this->oAuthRequest($url, 'DELETE', $parameters);
@@ -200,7 +197,7 @@ class Client {
      * @param string $url
      * @param string $method
      * @param array $parameters
-     * @return \Ritetag\API\Response|\Ritetag\API\OAuth\OAuthRequest
+     * @return \Ritetag\API\Response
      */
     private function oAuthRequest($url, $method, $parameters) {
         if (strrpos($url, 'https://') !== 0 && strrpos($url, 'http://') !== 0) {
