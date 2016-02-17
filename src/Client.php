@@ -111,7 +111,7 @@ class Client {
      * @return \Ritetag\API\Response|
      */
     public function trendingHashtags($green = false, $latin = false) {
-        return $this->get("/api/v2.2/data/trending-hashtags", ['green'=>$green,'latin'=>$latin]);
+        return $this->get("/api/v2.2/data/trending", ['green'=>$green,'latin'=>$latin]);
     }
     
     /**
@@ -120,7 +120,7 @@ class Client {
      * @return \Ritetag\API\Response
      */
     public function influencersForHashtag($hashtag) {
-        return $this->get("/api/v2.2/data/influencers" . urlencode($hashtag));
+        return $this->get("/api/v2.2/data/influencers/" . urlencode($hashtag));
     }
 
     /**
@@ -149,7 +149,7 @@ class Client {
      * @return \Ritetag\API\Response
      */
     public function autoenhance($tweet, $image=false){
-        return $this->get("/api/v2.2/autoenhance/",['tweet'=>$tweet,'image'=>(int)$image]);
+        return $this->get("/api/v2.2/ai/autoenhance/",['tweet'=>$tweet,'image'=>(int)$image]);
     }
     /**
      * GET request
