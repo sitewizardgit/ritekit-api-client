@@ -133,7 +133,7 @@
          * @return \Ritetag\API\Response
          */
         public function hashtagStats($query) {
-            return $this->get("/v1/stats/basic/" . urlencode($query));
+            return $this->get("/v1/stats/basic/" . urlencode($query) . '?client_id=' . $this->consumer->key);
         }
 
         /**
